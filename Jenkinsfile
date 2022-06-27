@@ -9,7 +9,7 @@ pipeline {
     stages {
          stage('build') {
             steps {
-                setBuildStatus message: 'Building', state: 'running'
+                //setBuildStatus message: 'Building', state: 'running'
                 script {
                     try {
                         sh './gradlew clean build'
