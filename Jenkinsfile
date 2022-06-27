@@ -69,17 +69,17 @@ pipeline {
         }
         
          post {
-        always {
-            // Cleans the workspace - so Jenkins will run fast and efficiently
-            cleanWs()
+            always {
+                // Cleans the workspace - so Jenkins will run fast and efficiently
+                cleanWs()
+            }
+            success {
+                setBuildStatus message:'Build' state: 'success'
+            }
+            failure {
+                setBuildStatus message:'Build' state: 'failed'
+            }
         }
-        success {
-            setBuildStatus state: 'success'
-        }
-        failure {
-            setBuildStatus state: 'failed'
-        }
-    }
 
     }
 }
