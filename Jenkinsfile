@@ -74,10 +74,10 @@ pipeline {
                 cleanWs()
             }
             success {
-                setBuildStatus message:'Build' state: 'success'
+                setBuildStatus message:'Build', state: 'success'
             }
             failure {
-                setBuildStatus message:'Build' state: 'failed'
+                setBuildStatus message:'Build', state: 'failed'
             }
         }
 
