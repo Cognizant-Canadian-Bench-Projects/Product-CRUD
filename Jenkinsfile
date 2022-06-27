@@ -13,10 +13,10 @@ pipeline {
                 script {
                     try {
                         sh './gradlew clean build'
-                        setBuildStatus message: 'Building', state: 'success'
+                        //setBuildStatus message: 'Building', state: 'success'
                     } catch (exec) {
                         // this is so we can capture the results in 'finally' below
-                        setBuildStatus message: 'Building', state: 'failed'
+                        //setBuildStatus message: 'Building', state: 'failed'
                         throw exec
                     }
                 }
@@ -33,9 +33,9 @@ pipeline {
                 script {
                     try {
                         sh './gradlew test'
-                        setBuildStatus message: 'unit test', state: 'success'
+                        //setBuildStatus message: 'unit test', state: 'success'
                     } catch (exec) {
-                        setBuildStatus message: 'unit test', state: 'failed'
+                        //setBuildStatus message: 'unit test', state: 'failed'
                         throw exec
                     }
                 }
@@ -51,10 +51,10 @@ pipeline {
                     script {
                         try {
                             sh './gradlew integrationTest'
-                            setBuildStatus message: 'integration test', state: 'success'
+                           // setBuildStatus message: 'integration test', state: 'success'
                         } catch (exec) {
                             // this is so we can capture the results in 'finally' below
-                            setBuildStatus message: 'integration test', state: 'failed'
+                           // setBuildStatus message: 'integration test', state: 'failed'
                             throw exec
                         }
                     }
