@@ -68,18 +68,18 @@ pipeline {
             }
         }
         
-         post {
-            always {
-                // Cleans the workspace - so Jenkins will run fast and efficiently
-                cleanWs()
-            }
-            success {
-                setBuildStatus message:'Build', state: 'success'
-            }
-            failure {
-                setBuildStatus message:'Build', state: 'failed'
-            }
-        }
+//          post {
+//             always {
+//                 // Cleans the workspace - so Jenkins will run fast and efficiently
+//                 cleanWs()
+//             }
+//             success {
+//                 setBuildStatus message:'Build', state: 'success'
+//             }
+//             failure {
+//                 setBuildStatus message:'Build', state: 'failed'
+//             }
+//         }
 
     }
 }
