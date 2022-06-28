@@ -65,7 +65,7 @@ pipeline {
         stage('Deploy') {
              when{
                 expression{
-                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') 
+                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
                 }
              }
             steps {
