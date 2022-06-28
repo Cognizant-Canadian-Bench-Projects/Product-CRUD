@@ -5,10 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class ProductCrudApplicationTests {
-
-// 	@Test
-// 	void contextLoads() {
-// 	}
-
-
+ 	@Test
+ 	void contextLoads() {
+ 	}
 }
