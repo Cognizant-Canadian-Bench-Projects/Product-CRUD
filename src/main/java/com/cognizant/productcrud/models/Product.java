@@ -1,9 +1,6 @@
 package com.cognizant.productcrud.models;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -15,6 +12,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
 
 public class Product {
 
@@ -25,22 +23,20 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "department_id")
-    private int departmentId;
-
-    @Column(name = "department_name")
-    private String departmentName;
+    @OneToOne
+    @JoinColumn(name = "department_id")//column name for the foreign key
+    private Department department;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id == product.id && departmentId == product.departmentId && Objects.equals(name, product.name) && Objects.equals(departmentName, product.departmentName);
+        return id == product.id && Objects.equals(name, product.name) && Objects.equals(department, product.department);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, departmentId, departmentName);
+        return Objects.hash(id, name, department);
     }
 }
