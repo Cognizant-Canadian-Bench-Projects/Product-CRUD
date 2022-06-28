@@ -1,13 +1,13 @@
 pipeline {
     agent any
-    
-//      agent {
-//         label 'main'
-//     }
-
 
     stages {
          stage('build') {
+             when{
+                expression{
+                    (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
+                }
+             }
             steps {
                 //setBuildStatus message: 'Building', state: 'running'
                 script {
@@ -24,11 +24,11 @@ pipeline {
         }
 
         stage('unit-test') {
-            when {
-                expression {
-                    return env.GIT_BRANCH != 'origin/develop'
+             when{
+                expression{
+                      (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
                 }
-            }
+             }
             steps {
                 script {
                     try {
@@ -42,11 +42,11 @@ pipeline {
             }
         }
         stage('integration-test') {
-                when {
-                    expression {
-                        return env.GIT_BRANCH != 'origin/develop'
-                    }
+             when{
+                expression{
+                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
                 }
+             }
                 steps {
                     script {
                         try {
@@ -63,6 +63,11 @@ pipeline {
 
         
         stage('Deploy') {
+             when{
+                expression{
+                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') 
+                }
+             }
             steps {
                 echo 'Deploying....'
             }
