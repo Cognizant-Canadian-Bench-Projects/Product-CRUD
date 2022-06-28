@@ -3,11 +3,11 @@ pipeline {
 
     stages {
          stage('build') {
-             when{
-                expression{
-                    BRANCH_NAME == 'develop' || BRANCH_NAME == 'main'
+            when {
+                expression {
+                    return env.GIT_BRANCH == 'origin/develop'
                 }
-             }
+
             steps {
                 //setBuildStatus message: 'Building', state: 'running'
                 script {
