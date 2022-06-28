@@ -6,6 +6,8 @@ import com.cognizant.productcrud.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 public class ProductService {
 
@@ -13,6 +15,10 @@ public class ProductService {
     ProductRepository productRepository;
 
     public Product findByName(String name){
-        return null;
+        Product product =productRepository.findByName(name);
+        if(product == null){
+            throw new EntityNotFoundException(name + " does not exist");
+        }
+        return productRepository.findByName(name);
     }
 }
