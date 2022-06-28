@@ -23,7 +23,7 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "department_id")//column name for the foreign key
     private Department department;
 

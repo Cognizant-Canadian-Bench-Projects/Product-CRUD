@@ -1,5 +1,5 @@
-insert into department(department_name)
-values ('clothing'),
+INSERT INTO department(department_name)
+VALUES ('clothing'),
 ('hardware');
 
 insert into product(name, department_id)
