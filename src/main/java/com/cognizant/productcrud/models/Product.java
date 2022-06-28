@@ -20,10 +20,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name",unique = true, length = 50)
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "department_id")//column name for the foreign key
     private Department department;
 
