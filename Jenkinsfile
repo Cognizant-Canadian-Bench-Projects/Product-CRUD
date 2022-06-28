@@ -1,5 +1,3 @@
-CODE_CHANGES = getGitChanges()
-
 pipeline {
     agent any
 
@@ -7,7 +5,7 @@ pipeline {
          stage('build') {
              when{
                 expression{
-                    (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && CODE_CHANGES == true
+                    (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
                 }
              }
             steps {
@@ -28,7 +26,7 @@ pipeline {
         stage('unit-test') {
              when{
                 expression{
-                      (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && CODE_CHANGES == true
+                      (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
                 }
              }
             steps {
@@ -46,7 +44,7 @@ pipeline {
         stage('integration-test') {
              when{
                 expression{
-                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && CODE_CHANGES == true
+                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
                 }
              }
                 steps {
@@ -67,7 +65,7 @@ pipeline {
         stage('Deploy') {
              when{
                 expression{
-                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && CODE_CHANGES == true
+                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') 
                 }
              }
             steps {
