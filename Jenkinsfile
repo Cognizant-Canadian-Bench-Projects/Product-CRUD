@@ -8,6 +8,7 @@ pipeline {
              when{
                 expression{
                     (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
+                    environment name: 'CHANGE_ID', value: 'PR'
                 }
              }
             steps {
@@ -82,12 +83,12 @@ pipeline {
 //                     cleanWs()
 //                 }
                 success {
-                echo CHANGE_ID
+                echo env.CHANGE_ID
                 echo BRANCH_NAME
                      mergePullRequest()
                 }
                 failure {
-                echo CHANGE_ID
+                echo env.CHANGE_ID
                                 echo BRANCH_NAME
                     commentPullRequest("[Failing Build](${env.BUILD_URL})")
                 }
