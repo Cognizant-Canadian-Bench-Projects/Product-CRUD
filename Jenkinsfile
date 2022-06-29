@@ -5,7 +5,7 @@ pipeline {
          stage('build') {
              when{
                 expression{
-                    (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
+                    (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && env.CHANGE_ID
                 }
              }
             steps {
@@ -26,7 +26,7 @@ pipeline {
         stage('unit-test') {
              when{
                 expression{
-                      (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
+                      (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && env.CHANGE_ID
                 }
              }
             steps {
@@ -44,7 +44,7 @@ pipeline {
         stage('integration-test') {
              when{
                 expression{
-                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
+                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && env.CHANGE_ID
                 }
              }
                 steps {
@@ -65,7 +65,7 @@ pipeline {
         stage('Deploy') {
              when{
                 expression{
-                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
+                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && env.CHANGE_ID
                 }
              }
             steps {
@@ -73,18 +73,18 @@ pipeline {
             }
         }
         
-//          post {
+         post {
 //             always {
 //                 // Cleans the workspace - so Jenkins will run fast and efficiently
 //                 cleanWs()
 //             }
-//             success {
-//                 setBuildStatus message:'Build', state: 'success'
-//             }
-//             failure {
-//                 setBuildStatus message:'Build', state: 'failed'
-//             }
-//         }
+            success {
+                 mergePullRequest()
+            }
+            failure {
+                commentPullRequest("[Failing Build](${env.BUILD_URL})")
+            }
+        }
 
     }
 }
