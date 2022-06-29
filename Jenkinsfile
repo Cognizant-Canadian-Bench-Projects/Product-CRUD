@@ -1,11 +1,14 @@
 pipeline {
     agent any
 
+echo env.CHANGE_ID
+
     stages {
          stage('build') {
              when{
                 expression{
-                    (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && env.CHANGE_ID
+                    (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
+
                 }
              }
             steps {
@@ -26,7 +29,7 @@ pipeline {
         stage('unit-test') {
              when{
                 expression{
-                      (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && env.CHANGE_ID
+                      (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
                 }
              }
             steps {
@@ -44,7 +47,7 @@ pipeline {
         stage('integration-test') {
              when{
                 expression{
-                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && env.CHANGE_ID
+                    (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
                 }
              }
                 steps {
@@ -65,7 +68,8 @@ pipeline {
         stage('Deploy') {
              when{
                 expression{
-                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && env.CHANGE_ID
+                    (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
+
                 }
              }
             steps {
