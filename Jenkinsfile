@@ -1,8 +1,6 @@
 pipeline {
     agent any
 
-
-
     stages {
          stage('build') {
              when{
@@ -43,6 +41,7 @@ pipeline {
                 }
             }
         }
+
         stage('integration-test') {
              when{
                 expression{
@@ -63,7 +62,6 @@ pipeline {
                 }
             }
 
-        
         stage('Deploy') {
              when{
                 expression{
@@ -76,16 +74,12 @@ pipeline {
             }
         }
     }
+
     post {
-         when{
-            expression{
-                environment name: 'CHANGE_ID', value: 'PR'
-            }
-         }
-        always {
-            // Cleans the workspace - so Jenkins will run fast and efficiently
-            cleanWs()
-        }
+//         always {
+//             // Cleans the workspace - so Jenkins will run fast and efficiently
+//             cleanWs()
+//         }
         success {
              mergePullRequest()
         }
