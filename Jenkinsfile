@@ -1,14 +1,13 @@
 pipeline {
     agent any
 
-echo env.CHANGE_ID
+
 
     stages {
          stage('build') {
              when{
                 expression{
                     (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
-
                 }
              }
             steps {
@@ -83,9 +82,11 @@ echo env.CHANGE_ID
 //                     cleanWs()
 //                 }
                 success {
+                echo env.CHANGE_ID
                      mergePullRequest()
                 }
                 failure {
+                echo env.CHANGE_ID
                     commentPullRequest("[Failing Build](${env.BUILD_URL})")
                 }
             }
