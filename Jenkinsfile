@@ -77,15 +77,20 @@ pipeline {
         }
     }
     post {
-//                 always {
-//                     // Cleans the workspace - so Jenkins will run fast and efficiently
-//                     cleanWs()
-//                 }
-                success {
-                     mergePullRequest()
-                }
-                failure {
-                    commentPullRequest("[Failing Build](${env.BUILD_URL})")
-                }
+         when{
+            expression{
+                environment name: 'CHANGE_ID', value: 'PR'
             }
+         }
+        always {
+            // Cleans the workspace - so Jenkins will run fast and efficiently
+            cleanWs()
+        }
+        success {
+             mergePullRequest()
+        }
+        failure {
+            commentPullRequest("[Failing Build](${env.BUILD_URL})")
+        }
+    }
 }
