@@ -4,9 +4,9 @@ pipeline {
     stages {
          stage('build') {
              when{
-                expression{
-                    (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && env.CHANGE_ID
-                }
+                    expression{
+                       environment name: 'CHANGE_ID', value: 'PR'
+                    }
              }
             steps {
                 //setBuildStatus message: 'Building', state: 'running'
@@ -26,7 +26,7 @@ pipeline {
         stage('unit-test') {
              when{
                 expression{
-                      (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && env.CHANGE_ID
+                      environment name: 'CHANGE_ID', value: 'PR'
                 }
              }
             steps {
@@ -41,10 +41,11 @@ pipeline {
                 }
             }
         }
+
         stage('integration-test') {
              when{
                 expression{
-                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && env.CHANGE_ID
+                    environment name: 'CHANGE_ID', value: 'PR'
                 }
              }
                 steps {
@@ -61,11 +62,11 @@ pipeline {
                 }
             }
 
-        
         stage('Deploy') {
              when{
                 expression{
-                 (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main') && env.CHANGE_ID
+                    environment name: 'CHANGE_ID', value: 'PR'
+
                 }
              }
             steps {
@@ -73,16 +74,17 @@ pipeline {
             }
         }
     }
+
     post {
-//                 always {
-//                     // Cleans the workspace - so Jenkins will run fast and efficiently
-//                     cleanWs()
-//                 }
-                success {
-                     mergePullRequest()
-                }
-                failure {
-                    commentPullRequest("[Failing Build](${env.BUILD_URL})")
-                }
-            }
+//         always {
+//             // Cleans the workspace - so Jenkins will run fast and efficiently
+//             cleanWs()
+//         }
+        success {
+             mergePullRequest()
+        }
+        failure {
+            commentPullRequest("[Failing Build](${env.BUILD_URL})")
+        }
+    }
 }
