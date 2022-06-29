@@ -28,7 +28,7 @@ pipeline {
         stage('unit-test') {
              when{
                 expression{
-                      (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
+                      environment name: 'CHANGE_ID', value: 'PR'
                 }
              }
             steps {
@@ -46,7 +46,7 @@ pipeline {
         stage('integration-test') {
              when{
                 expression{
-                    (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
+                    environment name: 'CHANGE_ID', value: 'PR'
                 }
              }
                 steps {
@@ -67,7 +67,7 @@ pipeline {
         stage('Deploy') {
              when{
                 expression{
-                    (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
+                    environment name: 'CHANGE_ID', value: 'PR'
 
                 }
              }
