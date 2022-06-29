@@ -83,10 +83,12 @@ pipeline {
 //                 }
                 success {
                 echo env.CHANGE_ID
+                echo BRANCH_NAME
                      mergePullRequest()
                 }
                 failure {
                 echo env.CHANGE_ID
+                                echo BRANCH_NAME
                     commentPullRequest("[Failing Build](${env.BUILD_URL})")
                 }
             }
