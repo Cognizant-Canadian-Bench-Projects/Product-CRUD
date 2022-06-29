@@ -72,19 +72,17 @@ pipeline {
                 echo 'Deploying....'
             }
         }
-        
-         post {
-//             always {
-//                 // Cleans the workspace - so Jenkins will run fast and efficiently
-//                 cleanWs()
-//             }
-            success {
-                 mergePullRequest()
-            }
-            failure {
-                commentPullRequest("[Failing Build](${env.BUILD_URL})")
-            }
-        }
-
     }
+    post {
+    //             always {
+    //                 // Cleans the workspace - so Jenkins will run fast and efficiently
+    //                 cleanWs()
+    //             }
+                success {
+                     mergePullRequest()
+                }
+                failure {
+                    commentPullRequest("[Failing Build](${env.BUILD_URL})")
+                }
+            }
 }
