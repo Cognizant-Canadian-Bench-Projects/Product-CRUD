@@ -1,15 +1,15 @@
 pipeline {
     agent any
 
-    when{
-        expression{
-           environment name: 'CHANGE_ID', value: 'PR'
-        }
-    }
+
 
     stages {
          stage('build') {
-
+             when{
+                    expression{
+                       environment name: 'CHANGE_ID', value: 'PR'
+                    }
+             }
             steps {
                 //setBuildStatus message: 'Building', state: 'running'
                 script {
@@ -26,11 +26,11 @@ pipeline {
         }
 
         stage('unit-test') {
-//              when{
-//                 expression{
-//                       (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
-//                 }
-//              }
+             when{
+                expression{
+                      (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
+                }
+             }
             steps {
                 script {
                     try {
@@ -44,11 +44,11 @@ pipeline {
             }
         }
         stage('integration-test') {
-//              when{
-//                 expression{
-//                     (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
-//                 }
-//              }
+             when{
+                expression{
+                    (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
+                }
+             }
                 steps {
                     script {
                         try {
@@ -65,12 +65,12 @@ pipeline {
 
         
         stage('Deploy') {
-//              when{
-//                 expression{
-//                     (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
-//
-//                 }
-//              }
+             when{
+                expression{
+                    (BRANCH_NAME == 'develop' || BRANCH_NAME == 'main')
+
+                }
+             }
             steps {
                 echo 'Deploying....'
             }
