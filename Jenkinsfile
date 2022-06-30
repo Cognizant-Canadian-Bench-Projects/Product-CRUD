@@ -17,7 +17,7 @@ pipeline {
         }
 
         stage('integration-test') {
-            when { not { changeRequest } }
+            when { not { changeRequest() } }
             steps {
               sh './gradlew integrationTest'
             }
