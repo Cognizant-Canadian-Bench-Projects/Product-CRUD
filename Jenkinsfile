@@ -27,7 +27,7 @@ pipeline {
         }
 
         stage('integration-test') {
-              when { not { changeRequest } }
+              when { not { changeRequest() } }
                 steps {
                     script {
                         try {
