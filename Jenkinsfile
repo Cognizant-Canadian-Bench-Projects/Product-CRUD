@@ -4,41 +4,24 @@ pipeline {
     stages {
          stage('build') {
             steps {
-                script {
-                    try {
-                        sh './gradlew clean build'
-                    } catch (exec) {
-                        throw exec
-                    }
-                }
+               steps {
+                       sh './gradlew clean build'
+                     }
             }
         }
 
         stage('unit-test') {
             steps {
-                script {
-                    try {
-                        sh './gradlew test'
-                    } catch (exec) {
-                        throw exec
-                    }
-                }
+                    sh './gradlew test'
             }
         }
 
         stage('integration-test') {
-              when { not { changeRequest() } }
-                steps {
-                    script {
-                        try {
-                            sh './gradlew integrationTest'
-                        } catch (exec) {
-                            // this is so we can capture the results in 'finally' below
-                            throw exec
-                        }
-                    }
-                }
+            when { not { changeRequest } }
+            steps {
+              sh './gradlew integrationTest'
             }
+        }
 
         stage('Deploy') {
             when { branch 'main' }
