@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.persistence.EntityNotFoundException;
 
 @RestController
-@CrossOrigin(originPatterns = "*", exposedHeaders = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "${fems.url}", allowCredentials = "true")
 public class ProductController {
     @Autowired
     private ProductService productService;
