@@ -36,7 +36,6 @@ public class ProductServiceTest {
     Department department2;
 
     @BeforeEach
-
     public void init(){
         department1=new Department(1,"clothing");
         product1 = new Product(1,"shirt",department1);

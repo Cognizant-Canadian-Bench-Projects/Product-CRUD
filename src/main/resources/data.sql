@@ -7,4 +7,5 @@ values
 ('shirt',  1),
 ('pant',  1),
 ('screw', 2),
-('bolt',2);
+('bolt',2),
+('nut',2);
