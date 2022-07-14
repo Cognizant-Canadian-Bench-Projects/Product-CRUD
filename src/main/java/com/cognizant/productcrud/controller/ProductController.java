@@ -13,16 +13,21 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.persistence.EntityNotFoundException;
 
 @RestController
-@CrossOrigin(originPatterns = "*", exposedHeaders = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "${fems.url}", allowCredentials = "true")
+//@CrossOrigin
 public class ProductController {
     @Autowired
     private ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<?> getProduct(@RequestParam String name){
+    public ResponseEntity<?> getProduct(@RequestParam(required = false) String name){
         try {
-            Product product = productService.findByName(name);
-            return ResponseEntity.ok(product);
+            if(name == null || name.equals("")){
+                return ResponseEntity.ok(productService.getAllProducts());
+            }else{
+                Product product = productService.findByName(name);
+                return ResponseEntity.ok(product);
+            }
         }catch(EntityNotFoundException e) {
             return ResponseEntity.status(404).body(e.getMessage());
         }
