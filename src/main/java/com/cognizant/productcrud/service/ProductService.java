@@ -23,7 +23,6 @@ public class ProductService {
         return product;
     }
 
-    //TODO 2: Get all products
     public List<Product> getAllProducts(){
         return productRepository.findAll();
     }
