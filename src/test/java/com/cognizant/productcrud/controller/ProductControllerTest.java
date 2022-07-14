@@ -14,6 +14,9 @@ import org.springframework.http.ResponseEntity;
 import javax.persistence.Entity;
 import javax.persistence.EntityNotFoundException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -28,8 +31,28 @@ class ProductControllerTest {
     @InjectMocks
     private ProductController productController;
 
+    Product product1;
+    Product product2;
+    Product product3;
+    Product product4;
+
+    Department department1;
+    Department department2;
+    List<Product> productList;
+
     @BeforeEach
-    void setUp() {
+    public void init(){
+        department1=new Department(1,"clothing");
+        product1 = new Product(1,"shirt",department1);
+        product2 = new Product(1,"pant",department1);
+        product3 = new Product(1,"glove",department1);
+        product4 = new Product(1,"cap",department1);
+        productList = new ArrayList<>();
+        productList.add(product1);
+        productList.add(product2);
+        productList.add(product3);
+        productList.add(product4);
+
     }
 
     @Test
@@ -57,5 +80,12 @@ class ProductControllerTest {
         ResponseEntity actual= productController.getProduct("shirts");
         assertThat(actual.getStatusCodeValue()).isEqualTo(404);
 
+    }
+
+    @Test
+    void getAllProducts(){
+        when(productService.getAllProducts()).thenReturn(productList);
+        ResponseEntity actual= productController.getProduct("");
+        assertThat(actual.getBody()).isEqualTo(productList);
     }
 }
