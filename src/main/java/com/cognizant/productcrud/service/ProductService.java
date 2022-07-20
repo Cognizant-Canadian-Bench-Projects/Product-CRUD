@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -19,6 +20,10 @@ public class ProductService {
         if(product == null){
             throw new EntityNotFoundException(name + " does not exist");
         }
-        return productRepository.findByName(name);
+        return product;
+    }
+
+    public List<Product> getAllProducts(){
+        return productRepository.findAll();
     }
 }
