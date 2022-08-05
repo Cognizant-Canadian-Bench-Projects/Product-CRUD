@@ -16,18 +16,18 @@ public class Department {
     private int id;
 
     @Column(name = "department_name",unique = true, length = 50)
-    private String departmentName;
+    private String name;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Department that = (Department) o;
-        return id == that.id && Objects.equals(departmentName, that.departmentName);
+        return id == that.id && Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, departmentName);
+        return Objects.hash(id, name);
     }
 }
