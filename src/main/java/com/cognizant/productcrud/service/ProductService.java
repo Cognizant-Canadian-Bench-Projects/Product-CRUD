@@ -20,10 +20,12 @@ public class ProductService {
         if(product == null){
             throw new EntityNotFoundException(name + " does not exist");
         }
+        System.out.println("call the database");
         return product;
     }
 
     public List<Product> getAllProducts(){
+        System.out.println("call all the database");
         return productRepository.findAll();
     }
 }
