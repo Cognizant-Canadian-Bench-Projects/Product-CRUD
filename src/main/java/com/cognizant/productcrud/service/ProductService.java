@@ -15,17 +15,15 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    public Product findByName(String name){
-        Product product =productRepository.findByName(name);
-        if(product == null){
+    public Product findByName(String name) {
+        Product product = productRepository.findByName(name);
+        if (product == null) {
             throw new EntityNotFoundException(name + " does not exist");
         }
-        System.out.println("call the database");
         return product;
     }
 
-    public List<Product> getAllProducts(){
-        System.out.println("call all the database");
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 }

@@ -1,7 +1,6 @@
 package com.cognizant.productcrud.models;
 
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -20,7 +19,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name",unique = true, length = 50)
+    @Column(name = "name", unique = true, length = 50)
     private String name;
 
     @OneToOne

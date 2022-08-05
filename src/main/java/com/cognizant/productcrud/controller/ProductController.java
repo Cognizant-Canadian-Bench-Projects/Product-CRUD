@@ -21,17 +21,17 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    @Cacheable(value="products", key="")
-    public ResponseEntity<?> getProduct(@RequestParam(required = false) String name){
+    @Cacheable(value = "products", key = "")
+    public ResponseEntity<?> getProduct(@RequestParam(required = false) String name) {
         try {
-            if(name == null || name.equals("")){
+            if (name == null || name.equals("")) {
                 return ResponseEntity.ok(productService.getAllProducts());
 
-            }else{
+            } else {
                 Product product = productService.findByName(name);
                 return ResponseEntity.ok(product);
             }
-        }catch(EntityNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.status(404).body(e.getMessage());
         }
     }

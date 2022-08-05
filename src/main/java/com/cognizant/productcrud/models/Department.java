@@ -7,7 +7,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "department")
-@NoArgsConstructor @Getter @Setter @ToString @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
 public class Department {
 
     @Id
@@ -15,7 +19,7 @@ public class Department {
 //    @Column(name = "department_id")
     private int id;
 
-    @Column(name = "department_name",unique = true, length = 50)
+    @Column(name = "department_name", unique = true, length = 50)
     private String name;
 
     @Override
